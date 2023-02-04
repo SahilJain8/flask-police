@@ -5,7 +5,7 @@ Flask==2.2.2
 numpy==1.23.5
 
 pandas==1.5.2
-
+openpyxl
 
 tensorflow-cpu
 
