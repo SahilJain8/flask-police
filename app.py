@@ -45,7 +45,7 @@ def tr():
     content_type=request.headers.get('Content-Type');
     if(content_type == 'application/json'):
         json=request.json
-        return jsonify(json)
+        return jsonify(json);
     else:
         return jsonify("nahi bhai")
     
