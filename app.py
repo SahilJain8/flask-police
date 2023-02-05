@@ -31,3 +31,6 @@ def pred():
           
        
     return jsonify(ing[pre.argmax()])
+
+if __name__ == "__main__":
+    app.run()
