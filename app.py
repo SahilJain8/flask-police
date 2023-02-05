@@ -18,7 +18,8 @@ def home():
 
 @app.route("/image",methods=['POST'])
 def pred():
-    if request.method == 'POST':
+    content_type=request.headers.get('Content-Type');
+    if (content_type=='multipar/formData'):
         file=request.files["image"]
         file.save(file.filename)
         test_img = tf.keras.utils.load_img(file.filename)
@@ -27,10 +28,14 @@ def pred():
         image_p=image/255.
        
         pre = model.predict(image_p)
-
         
-       
-          
+    else if(content_type=='application/json'):
+        file=request.json
+        file.save(file.filename)
+        test_img = tf.keras.utils.load_img(file.filename)
+        image=tf.image.resize(test_img,(224,224))
+        image = np.expand_dims(image, axis=0)
+        image_p=image/255.
        
     return jsonify(ing[pre.argmax()])
 
@@ -40,7 +45,7 @@ def tr():
     content_type=request.headers.get('Content-Type');
     if(content_type == 'application/json'):
         json=request.json
-        return jsonify("done bro")
+        return jsonify(json)
     else:
         return jsonify("nahi bhai")
     
