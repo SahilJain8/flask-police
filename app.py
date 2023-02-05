@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 import numpy as np
-
+import cv2
 import os
 import tensorflow as tf
 import pandas as pd
@@ -18,38 +18,29 @@ def home():
 
 @app.route("/image",methods=['POST'])
 def pred():
-    content_type=request.headers.get('Content-Type');
-    if (content_type=='multipar/formData'):
+    if request.method == 'POST':
         file=request.files["image"]
         file.save(file.filename)
-        test_img = tf.keras.utils.load_img(file.filename)
+        test_img = cv2.imread(file.filename)
         image=tf.image.resize(test_img,(224,224))
         image = np.expand_dims(image, axis=0)
         image_p=image/255.
        
         pre = model.predict(image_p)
-        
-    else if(content_type=='application/json'):
-        file=request.json
-        file.save(file.filename)
-        test_img = tf.keras.utils.load_img(file.filename)
-        image=tf.image.resize(test_img,(224,224))
-        image = np.expand_dims(image, axis=0)
-        image_p=image/255.
+
+          
        
     return jsonify(ing[pre.argmax()])
 
 
-@app.route("/array",methods=["POST"])
-def tr():
-    content_type=request.headers.get('Content-Type');
-    if(content_type == 'application/json'):
-        json=request.json
-        return jsonify(json);
-    else:
-        return jsonify("nahi bhai")
-    
-    
+@app.route("/imagessssss", methods=["POST"])
+def receive_image():
+    image = request.files["image"].read()
+    # do something with the image, such as save it to disk
+    return "Image received!"
+
+
+
 
 if __name__ == "__main__":
     app.run()
