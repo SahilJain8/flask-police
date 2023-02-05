@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 import numpy as np
-import cv2
+
 import os
 import tensorflow as tf
 import pandas as pd
@@ -21,7 +21,7 @@ def pred():
     if request.method == 'POST':
         file=request.files["image"]
         file.save(file.filename)
-        test_img = cv2.imread(file.filename)
+        test_img = tf.keras.util.load_img(file.filename)
         image=tf.image.resize(test_img,(224,224))
         image = np.expand_dims(image, axis=0)
         image_p=image/255.
@@ -34,6 +34,11 @@ def pred():
           
        
     return jsonify(f)
+
+@app.route("/arun",methods=['POST'])
+def arun():
+    data = request.get_json()
+    return "yesy arun goot ur json my boi"
 
 
 @app.route("/imagessssss", methods=["POST"])
