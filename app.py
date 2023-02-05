@@ -33,7 +33,7 @@ def pred():
         f = a.dropna().to_list()
           
        
-    return jsonify(f)
+        return jsonify(f)
 
 @app.route("/arun",methods=['POST'])
 def arun():
