@@ -27,10 +27,13 @@ def pred():
         image_p=image/255.
        
         pre = model.predict(image_p)
-
+        
+        a = train_df.where(train_df['Photo_Full_front']==ing[pre.argmax()])
+        
+        f = a.dropna().to_list()
           
        
-    return jsonify(ing[pre.argmax()])
+    return jsonify(f)
 
 
 @app.route("/imagessssss", methods=["POST"])
