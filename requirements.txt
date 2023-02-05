@@ -1,6 +1,5 @@
 Flask==2.2.2
-
-PIL
+install pillow
 
 numpy==1.23.5
 
