@@ -37,10 +37,12 @@ def pred():
 
 @app.route("/array",methods=["POST"])
 def tr():
-    if request.method == 'POST':
-        arr = request.json
-        
+    content_type=request.headers.get('Content-Type');
+    if(content_type == 'application/json'):
+        json=request.json
         return jsonify("done bro")
+    else:
+        return jsonify("nahi bhai")
     
     
 
