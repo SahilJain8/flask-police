@@ -38,7 +38,7 @@ def pred():
 @app.route("/array",methods=["POST"])
 def tr():
     if request.method == 'POST':
-        arr = request.form["arr"]
+        arr = request.json["arr"]
         
         return jsonify("done bro")
     
